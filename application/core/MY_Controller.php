@@ -33,14 +33,7 @@ class Admin_Controller extends MY_Controller
             redirect('admin/login', 'refresh');
         } else {
             $user_id = $this->session->userdata('id');
-            //$this->load->model('model_groups');
-            /*$group_data = $this->model_groups->getUserGroupByUserId($user_id);
-
-            $this->data['user_permission'] = unserialize($group_data['permission']);
-
-            $this->permission = unserialize($group_data['permission']);*/
         }
-        //$this->logged_in();
     }
 
     public function logged_in()
