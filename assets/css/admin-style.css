@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap");
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+nav {
+  background-color: #262626;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+nav .logo {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+nav ul li {
+  padding: 10px 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #545454;
+}
+
+nav ul li a:hover, nav ul li a.active {
+  color: #fff;
+}
+
+footer {
+  font-size: 12px;
+}
+
+.space-50 {
+  height: 50px;
+}
+/*# sourceMappingURL=admin-style.css.map */
