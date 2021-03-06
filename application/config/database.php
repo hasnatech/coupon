@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $environment = "production";
 $environment = "live";
-if($environment !== 'production'){
+if($environment == 'production'){
 	$hostname = "localhost";
 	$username = "root";
 	$password = "";
