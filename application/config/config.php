@@ -27,7 +27,7 @@ $config['base_url'] = 'http://localhost/coupon/';
 $config['powered'] = 'Powered by <a href="" target="_blank">Hasna Technology</a>.';
 $config['version'] = '0.0.1';
 $config['version_number'] = '1';
-$config['license_expiry'] = '01-10-2022';
+$config['price'] = array('Better Luck Next Time', 'Polo T Shirts');
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -38,7 +38,7 @@ $config['license_expiry'] = '01-10-2022';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

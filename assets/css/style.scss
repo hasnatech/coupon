@@ -66,16 +66,100 @@ body {
 		.submit {
 			text-align: right;
 
-			.red-button {
-				background-color: #e2000f;
-				color: #fff;
-				margin: 10px 0;
-				padding: 10px 30px;
-				border: 0;
-				border-radius: 20px;
-				font-family: 'Roboto', sans-serif;
-			}
+			
 		}
 
 	}
 }
+
+.red-button {
+	background-color: #e2000f;
+	color: #fff;
+	margin: 10px 0;
+	padding: 10px 30px;
+	border: 0;
+	border-radius: 20px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.alert-danger{
+    color: #842029;
+    background-color: #f8d7da;
+	border-color: #f5c2c7;
+	position: relative;
+	padding: 1rem 1rem;
+	margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+.m-0{
+	margin: 0px;
+}
+.mt-10{
+	margin-top: 10px;
+}
+
+.mt-20{
+	margin-top: 20px;
+}
+
+.uppercase{
+	text-transform: uppercase;
+}
+
+.instr{
+	font-size: 90%;
+	font-style: italic;
+}
+
+.promo-container {
+	background: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	width: 450px;
+	padding: 20px;
+	margin: 0 auto;
+	text-align: center;
+	font-family: 'Open Sans', Arial, Sans-serif;
+	color: #333;
+	font-size: 16px;
+	margin-top: 20px;
+	margin-bottom: 50px;
+  
+  }
+
+  .scratchpad {
+	width: 450px;
+	height: 445px;
+	border: solid 10px #FFFFFF;
+	margin: 0 auto;
+  }
+  .scratch-container {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	width: 100%;
+  }
+
+  canvas{
+	  left: 0;
+  }
+
+  .max-width{
+	  max-width: 360px;
+	  margin: 0 auto;
+  }
+
+  .screenshot{
+	  font-size: 90%;
+  }
+  .subscribe{
+	  margin-top: 30px;
+	  font-size: 110%;
+	  font-weight: bold;
+  }

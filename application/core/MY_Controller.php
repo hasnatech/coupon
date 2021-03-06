@@ -13,7 +13,12 @@ class MY_Controller extends CI_Controller
         $this->load->view('common/header', $data);
         $this->load->view($page, $data);
         $this->load->view('common/footer', $data);
-    
+    }
+    public function json($data)
+    {
+        $this->output->set_content_type('application/json')
+                    ->set_status_header(200)
+                    ->set_output(json_encode($data));
     }
 }
 

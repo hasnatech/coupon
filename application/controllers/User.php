@@ -4,7 +4,14 @@ class User extends Admin_Controller {
 public function __construct() {
     parent::__construct();
     $this->load->model('userModel');
+    $this->load->model('RegionModel');
     $this->load->library('session');
+
+    $region = $this->session->userdata('region');
+    if($region != 0){
+        redirect("coupon");
+    }
+  
 }
 /*
 function for manage User.
@@ -14,7 +21,23 @@ created at 25-02-21.
 santosh salve
 */
 public function index() { 
-    $data['users'] = $this->userModel->getAll();
+    $region = $this->session->userdata('region');
+    if($region == 0){
+        $data['users'] = $this->userModel->getAll();
+    }else{
+        //$data['users'] = $this->userModel->getDataByRegion($region);
+        redirect("coupon");
+    }
+    //$data['users'] = $this->userModel->getAll();
+    
+    foreach($data['users'] as $user){
+        if($user->region == 0){
+            $user->region = array((object) array('id' => 0, 'name' => 'All'));
+        }else{
+            $user->region = $this->RegionModel->getDataById($user->region);
+        }
+        
+    }
     $this->render('user/index', $data);
 }
 /*
@@ -23,7 +46,12 @@ created by your name
 created at 25-02-21.
 */
 public function add() {
-    $this->render('user/add');
+    $region = $this->session->userdata('region');
+    if($region != 0){
+        redirect("coupon");
+    }
+    $data['region'] = $this->RegionModel->getAll();
+    $this->render('user/add', $data);
 }
 /*
 function for add User post
@@ -36,7 +64,8 @@ public function addUserPost() {
     $data['email'] = $this->input->post('email');
     $data['firstname'] = $this->input->post('firstname');
     $data['lastname'] = $this->input->post('lastname');
-    $data['active'] = $this->input->post('active') == 'checked' ? 1 : 0;
+    $data['region'] = $this->input->post('region');
+    $data['active'] = $this->input->post('active') == 'checked' ? 1 : 0; 
 
 
     $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]',
@@ -67,9 +96,13 @@ created by your name
 created at 25-02-21.
 */
 public function edit($user_id) {
+   
+
     $data['user_id'] = $user_id;
     $data['user'] = $this->userModel->getDataById($user_id);
-    $this->render('user/edit', $data);
+    $data['region'] = $this->RegionModel->getAll();
+    $this->render('user/edit', $data);    
+    
 }
 /*
 function for edit User post
@@ -80,6 +113,7 @@ public function editUserPost() {
     $user_id = $this->input->post('user_id');
     $data['firstname'] = $this->input->post('firstname');
     $data['lastname'] = $this->input->post('lastname');
+    $data['region'] = $this->input->post('region');
     $data['active'] = $this->input->post('active') == 'checked' ? 1 : 0;
     $password = $this->input->post('password');
 
@@ -112,6 +146,7 @@ created at 25-02-21.
 public function view($user_id) {
     $data['user_id'] = $user_id;
     $data['user'] = $this->userModel->getDataById($user_id);
+    $data['region'] = $this->RegionModel->getAll();
     $this->render('user/view', $data);
 }
 /*

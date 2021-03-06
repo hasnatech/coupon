@@ -34,6 +34,15 @@
 			<input type="text" value="<?php echo $user[0]->lastname ?>" class="form-control" id="lastname"
 				name="lastname">
         </div>
+		<div class="form-group mb-3">
+			<label for="region">Region:</label>
+			<select class="form-control" id="region" name="region">
+				<option value="0">All</option>
+				<?php foreach ($region as $reg) { ?>
+					<option value="<?= $reg->id ?>" <?php if($reg->id == $user[0]->region) echo "selected" ?>><?= $reg->name ?></option>
+				<?php } ?>
+			</select>
+		</div>
         <div class="form-group">
             <label for="password">Change Password:</label>
 			 <input type="password" value="" class="form-control" id="password"

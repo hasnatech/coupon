@@ -14,7 +14,10 @@
 		<thead>
 			<tr>
 				<th>SL No</th>
-				<th>username</th>
+				<!-- <th>User</th> -->
+				<th>Email</th>
+				<th>Name</th>
+				<th>Region</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -22,9 +25,11 @@
 			<?php $i=1; foreach($users as $user) { ?>
 			<tr>
 				<td> <?php echo $i; ?> </td>
-				<td> <a href="<?php echo base_url('user/view/')?><?php echo $user->id?>"> <?php echo $user->username ?>
-					</a> </td>
-
+				<!-- <td> <a href="<?php echo base_url('user/view/')?><?php echo $user->id?>"> <?php echo $user->username ?>
+					</a> </td> -->
+				<td> <?php echo $user->email; ?> </td>
+				<td> <?php echo $user->firstname . " " . $user->lastname; ?> </td>
+				<td> <?php echo $user->region[0]->name; ?> </td>
 				<td>
 					<!-- <a href="<?php echo site_url()?>change-status-user/<?php echo $user->id ?>">
 						<?php if($user->active==0){ echo "Activate"; } else { echo "Deactivate"; } ?></a> -->

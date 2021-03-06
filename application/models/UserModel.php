@@ -17,6 +17,10 @@ class UserModel extends CI_Model {
     public function getAll() {
         return $this->db->get('users')->result();
     }
+    public function getDataByRegion($region) {
+        $this->db->where('region', $region);
+        return $this->db->get('users')->result();
+    }
     /*
     function for create User.
     return User inserted id.

@@ -13,9 +13,12 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/admin-style.css') ?>">
-
+    <link href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet">
+    
     <!--// Required Javascript Files //-->
     <script src="<?php echo base_url('assets/js/angular.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js'); ?>"></script>
+    <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url('assets/js/main.js') ?>"></script>
 </head>
 
@@ -23,14 +26,24 @@
     <!-- <div class="wrapper"> -->
     <?php if (!empty($this->session->userdata('logged_in'))) { ?>
     <nav>
-        <div class="logo"></div>
+        <div class="logo">
+            <img src="<?php echo base_url('assets/images/logo_red.svg') ?>" alt="">
+        </div>
         <div class="menu">
             <ul>
-                <li><a href="<?php echo base_url('/admin') ?>">Home</a></li>
-                <li><a href="<?php echo base_url('/user') ?>">User</a></li>
+                    <!-- <li><a href="<?php echo base_url('/admin') ?>">Home</a></li> -->
+                    <li><a href="<?php echo base_url('/coupon') ?>">Coupon</a></li>
+                <?php if ($this->session->userdata('region') == 0){ ?>
+                    <li><a href="<?php echo base_url('/user') ?>">User</a></li>
+                <?php } ?>
+                    
+                <?php if ($this->session->userdata('region') == 0){ ?>
+                    <li><a href="<?php echo base_url('/region') ?>">Region</a></li>
+                <?php } ?>
                 <li><a href="<?php echo base_url('/admin/logout') ?>">Logout</a></li>
             </ul>
         </div>
     </nav>
-    <?php } ?>
     <div class="space-50"></div>
+    <?php } ?>
+  

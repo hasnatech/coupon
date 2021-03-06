@@ -6,11 +6,40 @@ body{
     margin: 0;
 }
 
+$primary: #e2000f;
+$primary-dark: #b6000F;
+
+
+
+.btn-primary{
+    background-color: $primary;
+    border-color: $primary-dark;
+    color: #fff;
+    &:hover {
+        color: #fff;
+        background-color: $primary-dark;
+        border-color: $primary-dark;
+    }
+}
+
+.text-primary{
+    color: $primary !important;
+}
+
+
+
 nav{
-    background-color: #262626;
+    background-color: $primary;
     display: flex;
+    justify-content: center;
+    align-items: center;
     .logo{
         flex: 1;
+        img{
+            margin-left:20px ;
+            width: 150px;
+        }
+        
     }
 
     ul {
@@ -22,7 +51,7 @@ nav{
             padding: 10px 20px;
             a   {
                 text-decoration: none;
-                color: #545454;
+                color: #f3f3f3;
                 &:hover, &.active{
                     color: #fff;
                 }

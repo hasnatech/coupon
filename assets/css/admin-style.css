@@ -5,17 +5,44 @@ body {
   margin: 0;
 }
 
+.btn-primary {
+  background-color: #e2000f;
+  border-color: #b6000F;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #b6000F;
+  border-color: #b6000F;
+}
+
+.text-primary {
+  color: #e2000f !important;
+}
+
 nav {
-  background-color: #262626;
+  background-color: #e2000f;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 nav .logo {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+
+nav .logo img {
+  margin-left: 20px;
+  width: 150px;
 }
 
 nav ul {
@@ -33,7 +60,7 @@ nav ul li {
 
 nav ul li a {
   text-decoration: none;
-  color: #545454;
+  color: #f3f3f3;
 }
 
 nav ul li a:hover, nav ul li a.active {

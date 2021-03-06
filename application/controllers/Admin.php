@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin extends MY_Controller
+class Admin extends My_Controller
 {
 	public function __construct() {
         parent::__construct();
@@ -15,7 +15,8 @@ class Admin extends MY_Controller
             $this->session->set_userdata($session_data);
             redirect('admin/login', 'refresh');
         }else{
-            $this->render('admin/index');
+			//$this->render('admin/index');
+			redirect('coupon');
         }
 		
 	}
@@ -48,7 +49,8 @@ class Admin extends MY_Controller
 				$login = $user[0];
 				$logged_in_sess = array(
 					'id' => $login->id,
-					'companyname'  => $login->companyname,
+					//'companyname'  => $login->companyname,
+					'region'  => $login->region,
 					'email'     => $login->email,
 					'logged_in' => TRUE,
 					'role'      =>'user'
