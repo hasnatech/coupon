@@ -60,6 +60,9 @@ body {
 
 				//margin: 50px 0;
 				overflow: auto;
+				@media only screen and (max-width: 600px) {
+					max-width: fit-content;
+				}
 			}
 		}
 
@@ -135,6 +138,12 @@ body {
 	height: 445px;
 	border: solid 10px #FFFFFF;
 	margin: 0 auto;
+	@media only screen and (max-width: 600px) {
+		//width: fit-content;
+		aspect-ratio: 450 / 445;
+		width: auto;
+		height: auto;
+	}
   }
   .scratch-container {
 	-webkit-touch-callout: none;
@@ -163,3 +172,5 @@ body {
 	  font-size: 110%;
 	  font-weight: bold;
   }
+
+  

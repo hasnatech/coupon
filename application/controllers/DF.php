@@ -33,10 +33,10 @@ class Df extends My_Controller {
 
                     if($result[0]->issued != 0) {
                         $this->session->set_flashdata('error', "This coupon code ". $data['coupon'] ." alread taken.");
-                        //redirect('', $data);  
-                        $result[0]->price_text = $this->CouponModel->getPrice($result[0]->price);
+                        redirect('', $data);  
+                        /*$result[0]->price_text = $this->CouponModel->getPrice($result[0]->price);
                         $result = array('result' => $result[0]);
-                        $this->load->view('df/index', $result);
+                        $this->load->view('df/index', $result);*/
 
                     }else{
                         $result[0]->issued = 1;
@@ -55,27 +55,19 @@ class Df extends My_Controller {
                 $this->session->set_flashdata('error', "Incorrect code " . $data['coupon']);
                 redirect('', $data);
             }
-            /*$code = $this->CouponModel->getDataByCode($data['coupon']);
-            if(count($code) == 1){
-                $newdata['coupon'] = $data['coupon'];
-                $newdata['ip_address'] = getenv('REMOTE_ADDR');
-                $newdata['agent'] = $_SERVER['HTTP_USER_AGENT'];
-                $code = $this->CouponModel->insertCoupon($newdata);
-                if($code == 'exist') {
-                    $this->session->set_flashdata('error', "This coupon code ". $data['coupon'] ." alread taken.");
-                    redirect('', $data);  
-                }else{
-                    $result = array('result' => $this->CouponModel->getLogById($code));
-                    $this->render('df/index', $result);
-                }
-            }else{
-                $this->session->set_flashdata('error', "There is no coupon with id ". $data['coupon']);
-                redirect('', $data); 
-            }*/
         }
         else {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('', $data);
+            //redirect('', $data);
+
+            $result = $this->CouponModel->getByCodeRegion('IN', '123456');
+            //$result[0] = array();
+            $result[0]->region = 'IN';
+            $result[0]->code = '123456';
+            $result[0]->issued_date = date("Y/m/d");
+            $result[0]->price_text = $this->CouponModel->getPrice(1);
+            $result = array('result' => $result[0]);
+            $this->load->view('df/index', $result);
         }
     }
     

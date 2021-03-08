@@ -62,6 +62,14 @@ body {
   overflow: auto;
 }
 
+@media only screen and (max-width: 600px) {
+  .grid .panel .terms .terms-content {
+    max-width: -webkit-fit-content;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+  }
+}
+
 .grid .panel .submit {
   text-align: right;
 }
@@ -130,6 +138,14 @@ body {
   height: 445px;
   border: solid 10px #FFFFFF;
   margin: 0 auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .scratchpad {
+    aspect-ratio: 450 / 445;
+    width: auto;
+    height: auto;
+  }
 }
 
 .scratch-container {
