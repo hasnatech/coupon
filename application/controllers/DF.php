@@ -79,5 +79,9 @@ class Df extends My_Controller {
         }
     }
     
+
+    public function index(){
+        echo "index";
+    }
 }
 ?>

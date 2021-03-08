@@ -25,6 +25,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $environment = "production";
 $environment = "live";
+
 if($environment == "live"){
     $config['base_url'] = 'http://coupon-danfoss.hasnatech.com/'; 
 }else{
