@@ -1,5 +1,5 @@
 <?php 
-class Df extends My_Controller {
+class DF extends My_Controller {
 
     public function __construct() {
         parent::__construct();
