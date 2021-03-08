@@ -33,10 +33,10 @@ class Df extends My_Controller {
 
                     if($result[0]->issued != 0) {
                         $this->session->set_flashdata('error', "This coupon code ". $data['coupon'] ." alread taken.");
-                        redirect('', $data);  
-                        /*$result[0]->price_text = $this->CouponModel->getPrice($result[0]->price);
+                        //redirect('', $data);  
+                        $result[0]->price_text = $this->CouponModel->getPrice($result[0]->price);
                         $result = array('result' => $result[0]);
-                        $this->load->view('df/index', $result);*/
+                        $this->load->view('df/index', $result);
 
                     }else{
                         $result[0]->issued = 1;

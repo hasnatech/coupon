@@ -23,14 +23,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$environment = "production";
-$environment = "live";
-
-if($environment == "live"){
-    $config['base_url'] = 'http://coupon-danfoss.hasnatech.com/'; 
-}else{
+if(ENVIRONMENT == "development"){
     $config['base_url'] = 'http://localhost/coupon/';    
-   
+}else{
+    $config['base_url'] = 'http://coupon-danfoss.hasnatech.com/'; 
 }
 $config['powered'] = 'Powered by <a href="" target="_blank">Hasna Technology</a>.';
 $config['version'] = '0.0.1';

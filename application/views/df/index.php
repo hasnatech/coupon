@@ -53,7 +53,7 @@
             </div>
 		</div>
 	</div>
-    <?php echo $result->price ?>
+    
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="https://jennamolby.com/scratch-and-win/js/wScratchPad.min.js"></script>
 	<script type="text/javascript">
