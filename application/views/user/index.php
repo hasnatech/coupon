@@ -14,7 +14,7 @@
 		<thead>
 			<tr>
 				<th>SL No</th>
-				<th>username</th>
+				<th>Username</th>
 				<th>Actions</th>
 			</tr>
 		</thead>

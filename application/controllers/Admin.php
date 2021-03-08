@@ -16,7 +16,8 @@ class Admin extends MY_Controller
             redirect('admin/login', 'refresh');
         }else{
             $this->render('admin/index');
-        }
+		} 
+		//echo "Welcome";
 		
 	}
 
@@ -54,7 +55,7 @@ class Admin extends MY_Controller
 					'role'      =>'user'
 				);
 				$this->session->set_userdata($logged_in_sess);
-				redirect('admin/index'); 	
+				redirect('blog'); 	
 			}
 			//$id = $this->Model_a->insert($this->input->post());
 			//$this->result = $this->Model_a->get($id);

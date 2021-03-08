@@ -16,21 +16,37 @@
 
     <!--// Required Javascript Files //-->
     <script src="<?php echo base_url('assets/js/angular.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js'); ?>"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <script src="<?php echo base_url('assets/js/main.js') ?>"></script>
 </head>
 
 <body class="">
-    <!-- <div class="wrapper"> -->
+    <div class="d-flex">
+    <?php if (empty($header)) { ?>
+    <div class="side-left">
+    <div class="logo">
+        <img src="<?php echo base_url('assets/images/logo.png');?>" alt="Netcon">
+    </div>
     <?php if (!empty($this->session->userdata('logged_in'))) { ?>
-    <nav>
-        <div class="logo"></div>
-        <div class="menu">
-            <ul>
-                <li><a href="<?php echo base_url('/admin') ?>">Home</a></li>
-                <li><a href="<?php echo base_url('/user') ?>">User</a></li>
-                <li><a href="<?php echo base_url('/admin/logout') ?>">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
+        
+            <nav>
+                <div class="menu">
+                    <ul>
+                        <!-- <li><a href="<?php echo base_url('/admin') ?>">Home</a></li> -->
+                        <li><a href="<?php echo base_url('/user') ?>">User</a></li>
+                        <li><a href="<?php echo base_url('/blog') ?>">Blog</a></li>
+                        <li><a href="<?php echo base_url('/blog') ?>">Stories</a></li>
+                        <li><a id="asset" href="#">Asset</a></li>
+                        <li><a href="<?php echo base_url('/admin/logout') ?>">Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+        <?php } ?>
+   
+    </div>
     <?php } ?>
+<div class="content-panel">
+    
     <div class="space-50"></div>
