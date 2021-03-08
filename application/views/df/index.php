@@ -24,7 +24,7 @@
 				<?php echo $this->session->flashdata('error'); ?>
 			</div>
 			<?php } ?>
-<div id="output"></div>
+
 			<div class="center">
 				<h3 class="uppercase m-0 mt-20">Scratch to reveal your prize</h3>
                 <p class='instr m-0'>Scratch it with touch or mouse</p>

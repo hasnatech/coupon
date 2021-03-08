@@ -58,16 +58,16 @@ class Df extends My_Controller {
         }
         else {
             $this->session->set_flashdata('error', validation_errors());
-            //redirect('', $data);
+            redirect('', $data);
 
-            $result = $this->CouponModel->getByCodeRegion('IN', '123456');
-            //$result[0] = array();
+            //Testing the page
+            /*$result = $this->CouponModel->getByCodeRegion('IN', '123456');
             $result[0]->region = 'IN';
             $result[0]->code = '123456';
             $result[0]->issued_date = date("Y/m/d");
             $result[0]->price_text = $this->CouponModel->getPrice(1);
             $result = array('result' => $result[0]);
-            $this->load->view('df/index', $result);
+            $this->load->view('df/index', $result);*/
         }
     }
     
