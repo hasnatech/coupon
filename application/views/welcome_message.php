@@ -23,7 +23,7 @@
 			<?php } ?>
 
 
-			<?php echo form_open('DF/verify') ?>
+			<?php echo form_open('df/verify') ?>
 			<div class="enter">
 				<div class="lable">
 					Enter Coupon Code
