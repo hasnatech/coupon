@@ -6,6 +6,7 @@ class Coupon extends Admin_Controller {
         $this->load->model('CouponModel');
         $this->load->model('RegionModel');
        //$this->load->library('session');
+       $this->load->library('excel');
     } 
     /*
     function for manage Coupon.
@@ -70,7 +71,52 @@ class Coupon extends Admin_Controller {
         $this->json($output);
 
     }
+    public function import(){
+        $config['upload_path']          = './uploads/';
+        //$config['allowed_types']      = 'xlsx|csv|xls';
+        $config['allowed_types']        = 'xlsx|csv|xls|ods';
+        //$config['max_size']             = 1024 * 10;
+        //$config['encrypt_name']         = true;
+        
+        $this->load->library('upload', $config);
 
+        if ( ! $this->upload->do_upload('import'))
+        {
+            //echo  $this->upload->display_errors();
+            $this->json($this->upload->display_errors());
+            //$error = array('error' => $this->upload->display_errors());
+            //$this->render('asset/index', $error);
+        } else
+        {
+            $data =  $this->upload->data();
+            $excel = array();
+
+            $path = $_FILES["import"]["tmp_name"];
+            $object = PHPExcel_IOFactory::load($path);
+            foreach($object->getWorksheetIterator() as $worksheet)
+            {
+                $highestRow = $worksheet->getHighestRow();
+                $highestColumn = $worksheet->getHighestColumn();
+                for($row=2; $row<=$highestRow; $row++)
+                {
+                //$customer_name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+                $region = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+                $code = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+                $price = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+                $whole_saler = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+                $excel[] = array(
+                    'region'  => $region,
+                    'code'   => $code,
+                    'price' => $price,
+                    'whole_saler'    => $whole_saler
+                    );
+                }
+            }
+            //$this->excel_import_model->insert($data);
+            //$this->db->insert_batch('tbl_customer', $data);
+            $this->json($excel);
+        }
+    }
     public function export(){
         //$this->load->model("excel_export_model");
         $this->load->library("excel");

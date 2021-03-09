@@ -1,6 +1,13 @@
 <div class="container">
 	<div class="float-end">
-		<a id="export" href="<?php echo base_url('coupon/export') ?>" class="btn btn-success">Export</a>
+		<a id="export" href="<?php echo base_url('coupon/export') ?>" class="btn btn-success">Export</a> &nbsp;
+		<a id="import_btn" href="<?php echo base_url('coupon/import') ?>" class="btn btn-secondary">
+			Import
+			<div class="spinner-border spinner-border-sm hidden" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</a>
+		<input type="file" class="hidden" name="import" id="import" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
 	</div>
 	<h2>Manage Coupon</h2>
 	<a href="<?php echo base_url('coupon/add') ?>" class="btn btn-primary">New Coupon</a>
@@ -110,6 +117,35 @@
 			});
 			$(document.body).append(form);
 			form.submit();
+		});
+
+
+		$("#import_btn").click(function(e){
+			e.preventDefault();
+			$("#import").click();
+			$('#import').change(function() {
+				$(this).find(".spinner-border").removeClass("hidden");
+				var data = new FormData();
+				data.append('import',  $(this)[0].files[0]);
+			
+				$.ajax({
+					url: '<?php echo base_url('coupon/import') ?>',
+					data: data,
+					cache: false,
+					contentType: false,
+					processData: false,
+					method: 'POST',
+					success: function(data){
+						console.log(data);
+					},
+					uploadProgress: function(event, position, total, percentComplete) {
+						var percentVal = percentComplete + '%';
+						console.log(percentVal);
+						//bar.width(percentVal);
+						//percent.html(percentVal);
+					}
+				});
+			});
 		});
 	});
 	</script>
