@@ -29,12 +29,11 @@
 				<input type="text" value="<?php echo $coupon[0]->code ?>" class="form-control" id="code" name="code">
 			</div>
 
-		<!-- <div class="form-group">
-			<label for="code">Code:</label>
-			<input type="text" value="<?php echo $coupon[0]->code ?>" class="form-control" id="code" name="code">
-		</div> -->
+		<div class="form-group">
+			<label for="code">Whole Saler:</label>
+			<input type="text" value="<?php echo $coupon[0]->whole_saler ?>" class="form-control" id="whole_saler" name="whole_saler">
+		</div>
 		<div class="form-group mb-3">
-
 				<label for="region">Price:</label>
 				<select class="form-control" id="price" name="price">
 					<option value="">Select One</option>

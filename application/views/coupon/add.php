@@ -24,10 +24,10 @@
 				<span class="input-group-text" id="regioncode">-</span>
 				<input type="text" class="form-control" id="code" name="code">
 			</div>
-			<!-- <div class="form-group mb-3">
-				<label for="code">Code:</label>
-				<input type="text" class="form-control" id="code" name="code">
-			</div> -->
+			<div class="form-group">
+			<label for="code">Whole Saler:</label>
+			<input type="text" class="form-control" id="whole_saler" name="whole_saler">
+		</div>
 
 
 			<div class="form-group mb-3">

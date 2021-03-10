@@ -49,6 +49,7 @@ class Coupon extends Admin_Controller {
             $sub_array[] = $count;  
             $sub_array[] = $coupon->region. "-" . $coupon->code;  
             $sub_array[] = $this->CouponModel->getPrice($coupon->price)[0]->name;  
+            $sub_array[] = $coupon->whole_saler;
             $sub_array[] = ($coupon->issued == 1) ? '<div class="badge bg-success ">Issued</div>' : '<div class="badge bg-warning text-dark">Available</div>';  
             $sub_array[] = ($coupon->issued_date == null) ? '' : date('M d, Y',  strtotime($coupon->issued_date));
             if($coupon->issued_date == null){
@@ -144,7 +145,8 @@ class Coupon extends Admin_Controller {
                             'region'  => $region,
                             'code'   => $code,
                             'price' => $price,
-                            'whole_saler'    => $whole_saler
+                            'whole_saler'    => $whole_saler,
+                            'user_id' => $this->session->userdata('id')
                         );
                     }
                     
@@ -247,6 +249,7 @@ class Coupon extends Admin_Controller {
         $data['region'] = $this->input->post('region');
         $data['price'] = $this->input->post('price');
         $data['user_id'] = $this->session->userdata('id');
+        $data['whole_saler'] = $this->input->post('whole_saler');
 
         $code = $this->CouponModel->getDataByCode($data['code']);
         if(count($code) > 0)
@@ -301,6 +304,7 @@ class Coupon extends Admin_Controller {
         $data['code'] = $this->input->post('code');
         $data['region'] = $this->input->post('region');
         $data['price'] = $this->input->post('price');
+        $data['whole_saler'] = $this->input->post('whole_saler');
 
         $this->form_validation->set_rules('code', 'Code', 'trim|required|min_length[4]');
         $this->form_validation->set_rules('region', 'Region', 'trim|required');

@@ -26,6 +26,7 @@
 				<th>SL No</th>
 				<th>Code</th>
 				<th>Price</th>
+				<th>Wholesaler</th>
 				<th>Issued</th>
 				<th>Issued Date</th>
 				<th>Actions</th>
