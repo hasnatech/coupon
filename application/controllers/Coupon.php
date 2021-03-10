@@ -192,9 +192,9 @@ class Coupon extends Admin_Controller {
 
         if($region != 0){
             $region = $this->RegionModel->getDataById($region)[0]->code;
-            $data['coupons'] = $this->CouponModel->make_datatables($region);
+            $data['coupons'] = $this->CouponModel->getAll($region);
         }else {
-            $data['coupons'] = $this->CouponModel->make_datatables();
+            $data['coupons'] = $this->CouponModel->getAll();
         }
         
         $excel_row = 2;

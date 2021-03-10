@@ -43,11 +43,11 @@ class CouponModel extends CI_Model {
          }  
     }
 
-    function make_datatables($region = null, $length = -1){  
+    function make_datatables($region = null){  
        
         $this->make_query($region);  
         
-        if($_POST["length"] != -1 && $length!=-1)  
+        if($_POST["length"] != -1 )  
         {  
              $this->db->limit($_POST['length'], $_POST['start']);  
         }  
@@ -73,8 +73,10 @@ class CouponModel extends CI_Model {
    }  
 
 
-    public function getAll() {
-        return $this->db->get('coupon')->result();
+    public function getAll($region = null) {
+        $this->make_query($region);  
+        $query = $this->db->get();
+        return $query->result();  
     }
     
     public function getAllPrice() {
