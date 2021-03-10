@@ -92,39 +92,86 @@ class Coupon extends Admin_Controller {
             $excel = array();
 
             $path = $_FILES["import"]["tmp_name"];
+
+           
             $object = PHPExcel_IOFactory::load($path);
             foreach($object->getWorksheetIterator() as $worksheet)
             {
                 $highestRow = $worksheet->getHighestRow();
                 $highestColumn = $worksheet->getHighestColumn();
+                $row_error = [];
                 for($row=2; $row<=$highestRow; $row++)
                 {
-                //$customer_name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
-                $region = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
-                $code = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
-                $price = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
-                $whole_saler = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
-                $excel[] = array(
-                    'region'  => $region,
-                    'code'   => $code,
-                    'price' => $price,
-                    'whole_saler'    => $whole_saler
-                    );
+                    $row_error_fl = false;
+                    //$customer_name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+                    $region = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+                    $code = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+                    $price = $this->CouponModel->getPriceId($worksheet->getCellByColumnAndRow(3, $row)->getValue());
+                    $whole_saler = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+                    $code_arr = $this->CouponModel->getDataByCode($code);
+                    if(count($code_arr) > 0)
+                    {
+                        foreach($code_arr as $c){
+                            if($c->region == $region){
+                                $row_error[] =  "<p class='text-danger'>Row " . $row . ' - Code '. $region . '-'. $code . ' is already created.</p>';
+                                $row_error_fl = true;
+                            }
+                        }
+                    }
+
+                    if($code == ""){
+                        $row_error_fl = true;
+                        $row_error[] =  "<p class='text-danger'>Row " . $row . ' - The code is empty.</p>';
+                    }
+
+                    if($region == ""){
+                        $row_error_fl = true;
+                        $row_error[] =  "<p class='text-danger'>Row " . $row . ' - The region is empty.</p>';
+                    }
+
+                    if($price == ""){
+                        $row_error_fl = true;
+                        $row_error[] =  "<p class='text-danger'>Row " . $row . ' - The price is empty.</p>';
+                    }
+
+                    if($whole_saler == ""){
+                        $row_error_fl = true;
+                        $row_error[] =  "<p class='text-danger'>Row " . $row . ' - The whole saler is empty.</p>';
+                    }
+                    
+                    if ($row_error_fl == false) {
+                        $excel[] = array(
+                            'region'  => $region,
+                            'code'   => $code,
+                            'price' => $price,
+                            'whole_saler'    => $whole_saler
+                        );
+                    }
+                    
                 }
             }
-            //$this->excel_import_model->insert($data);
-            //$this->db->insert_batch('tbl_customer', $data);
-            $this->json($excel);
+            if(count($excel) > 0){
+                $result = $this->CouponModel->insert_batch($excel);
+            }
+            
+            if(count($row_error) != 0){
+                $row_error[] = "<p class='text-success'>" . count($excel) . " data are imported.</p>";
+                $this->json($row_error);
+            }else {
+                $this->json("<p class='text-success'>" . count($excel) . " data are imported.</p>");
+            }
+            
         }
     }
+
     public function export(){
         //$this->load->model("excel_export_model");
-        $this->load->library("excel");
+        //$this->load->library("excel");
         $object = new PHPExcel();
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("Id", "Code", "Price", "Issued", "Issued Date");
+        $table_columns = array("Id", "Region", "Code", "Price", "Wholesaler", "Issued", "Issued Date");
 
         $column = 0;
 
@@ -155,14 +202,17 @@ class Coupon extends Admin_Controller {
         
         foreach($data['coupons'] as $row)
         {
-        $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->id);
-        $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->region. "-" . $row->code);
-        $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $this->CouponModel->getPrice($row->price)[0]->name);
-        $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, ($row->issued == 1) ? 'Issued' : 'Available');
-        $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->issued_date);
-        $excel_row++;
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->id);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->region);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row,  $row->code);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $this->CouponModel->getPrice($row->price)[0]->name);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row,  $row->whole_saler);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, ($row->issued == 1) ? 'Issued' : 'Available');
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->issued_date);
+            $excel_row++;
         }
 
+        //$this->json($data['coupons']);
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="Coupon Data.xls"');

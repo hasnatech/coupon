@@ -78,4 +78,9 @@ footer {
 .hidden {
   display: none;
 }
+
+.scrollable {
+  max-height: calc(100vh - 220px);
+  overflow: auto;
+}
 /*# sourceMappingURL=admin-style.css.map */

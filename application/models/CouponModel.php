@@ -8,7 +8,7 @@ class CouponModel extends CI_Model {
     created at 27-02-21.
     */
     var $table = "coupon";  
-    var $select_column = array("id", "code", "region", "price", "issued", "issued_date", "date", "user_id");  
+    var $select_column = array("id",  "region", "code", "whole_saler", "price", "issued", "issued_date", "date", "user_id");  
     var $order_column = array(null, "issued_date", "region", "code", null);  
 
     function make_query($region = null)  
@@ -43,11 +43,11 @@ class CouponModel extends CI_Model {
          }  
     }
 
-    function make_datatables($region = null){  
+    function make_datatables($region = null, $length = -1){  
        
         $this->make_query($region);  
         
-        if($_POST["length"] != -1)  
+        if($_POST["length"] != -1 && $length!=-1)  
         {  
              $this->db->limit($_POST['length'], $_POST['start']);  
         }  
@@ -85,6 +85,15 @@ class CouponModel extends CI_Model {
         $this->db->where('id', $id);
         return $this->db->get('price')->result();
     }
+
+    public function getPriceId($name) {
+        $this->db->where('name', $name);
+        if(count($this->db->get('price')->result()) > 0){
+            return $this->db->get('price')->result()[0]->id;
+        }
+        return "";
+        
+    }
     /*
     function for create Coupon.
     return Coupon inserted id.
@@ -96,6 +105,13 @@ class CouponModel extends CI_Model {
         $this->db->insert('coupon', $data);
         return $this->db->insert_id();
     }
+
+    public function insert_batch($data) {
+        
+        $this->db->insert_batch('coupon', $data);
+        return true;
+    }
+
 
     public function insertCoupon($data) {
         $this->db->where('coupon', $data['coupon']);

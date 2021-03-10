@@ -26,9 +26,9 @@
 			<?php } ?>
 
 			<div class="center">
-				<h3 class="uppercase m-0 mt-20">Scratch to reveal your prize</h3>
-                <p class='instr m-0'>Scratch it with touch or mouse</p>
-                <p class="mt-20">Coupon: <?php echo $result->region . "-" . $result->code ;?>
+				<h3 class="uppercase m-0 mt-20">Grattez pour découvrir votre cadeau</h3>
+                <p class='instr m-0'>Pour gratter, utilisez une touche ou votre souris</p>
+                <!-- <p class="mt-20">Coupon: <?php echo $result->region . "-" . $result->code ;?> -->
 			</div>
             <div>
                 <div class="scratch-container">
@@ -40,17 +40,17 @@
                 </div>
             </div>
             <div>
-                <p class="uppercase max-width screenshot">Please go to the counter of your distributor with 
-                    this screen shot to receive your price*</p>
+                <p class="uppercase max-width screenshot">Rendez-vous au comptoir de votre grossiste avec cet copie d’écran pour recevoir votre gain*</p>
                                 
-                <p class="uppercase max-width subscribe">Subscribe to Danfoss Newsletter 
-                for a second chance to win</p>
+                <p class="uppercase max-width subscribe">Inscrivez-vous vous à la newsletter Danfoss pour une deuxième chance de gagner</p>
 
                 <div class="center">
-				    <button class="red-button">Subscribe</button>
+					<p>
+					<a href="https://www.danfoss.com/fr-fr/service-and-support/fix-and-troubleshooting/cooling-support-for-wholesalers-and-installers/#signup" target="_blank" class="red-button">S'abonner</a>
+					</p>
                 </div>
                 
-                <p class="max-width">Click <a href="https://www.danfoss.fr/fr-fr/service-and-support/fix-and-troubleshooting/cooling-support-for-wholesalers-and-installers/reddays-reglement/">here</a> to read game rules</p>
+                <p class="max-width">Cliquez <a href="https://www.danfoss.fr/fr-fr/service-and-support/fix-and-troubleshooting/cooling-support-for-wholesalers-and-installers/reddays-reglement/">ici</a> pour lire les règles du jeu</p>
                 <!-- <?php print_r($result->price_text[0]->name); ?> -->
             </div>
 		</div>

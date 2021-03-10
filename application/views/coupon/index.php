@@ -3,7 +3,7 @@
 		<a id="export" href="<?php echo base_url('coupon/export') ?>" class="btn btn-success">Export</a> &nbsp;
 		<a id="import_btn" href="<?php echo base_url('coupon/import') ?>" class="btn btn-secondary">
 			Import
-			<div class="spinner-border spinner-border-sm hidden" role="status">
+			<div id="spinner" class="spinner-border spinner-border-sm hidden" role="status">
 				<span class="sr-only">Loading...</span>
 			</div>
 		</a>
@@ -20,42 +20,6 @@
 	<?php } ?>
 
 	<?php if(!empty($coupons)) {?>
-	<!-- <table id="datatable" class="table table-hover">
-		<thead>
-			<tr>
-				<th>SL No</th>
-				<th>Code</th>
-				<th>Price</th>
-				<th>Issued</th>
-				<th>Issued Date</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $i=1; foreach($coupons as $coupon) { ?>
-			<tr>
-				<td> <?php echo $i; ?> </td>
-				<td> <?php echo $coupon->region . "-".$coupon->code ?></td>
-				<td> <?php echo $coupon->price_text[0]->name; ?></td>
-				<td>
-					<?php if ($coupon->issued == 1) { ?> 
-					<div class="badge bg-success ">Issued</div> </td>
-					<?php } else {?>
-					<div class="badge bg-warning text-dark">Available</div> </td>
-					<?php } ?>
-				<td> <?php echo $coupon->issued_date ?></td>
-				<td>
-				<?php if ($coupon->issued != 1) { ?> 
-					<a href="<?php echo site_url('coupon/edit/')?><?php echo $coupon->id?>">Edit</a>
-					<a href="<?php echo site_url('coupon/delete/')?><?php echo $coupon->id?>"
-						onclick="return confirm('are you sure to delete')">Delete</a>
-				<?php } ?>
-				</td>
-
-			</tr>
-			<?php $i++; } ?>
-		</tbody>
-	</table> -->
 	<table id="datatable" class="table table-bordered table-striped">
 		<thead>
 			<tr>
@@ -73,6 +37,26 @@
 		<strong>No Coupons Found!</strong>
 	</div>
 	<?php } ?>
+
+	<div id="myModal" class="modal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Import Result</h5>
+				<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+			</div>
+			<div class="modal-body">
+				<div class="scrollable">
+				<div id="result">
+				</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+			</div>
+		</div>
+	</div>
 
 	<script>
 		$().ready(function (){
@@ -124,10 +108,14 @@
 			e.preventDefault();
 			$("#import").click();
 			$('#import').change(function() {
-				$(this).find(".spinner-border").removeClass("hidden");
+				$("#spinner").removeClass("hidden");
 				var data = new FormData();
 				data.append('import',  $(this)[0].files[0]);
 			
+				$("#close").click(function(){
+					location.reload();
+				})
+
 				$.ajax({
 					url: '<?php echo base_url('coupon/import') ?>',
 					data: data,
@@ -137,6 +125,12 @@
 					method: 'POST',
 					success: function(data){
 						console.log(data);
+						$("#result").text("");
+						for (let i = 0; i < data.length; i++) {
+							$("#result").append("<p>" + data[i] + "</p>");	
+						}
+						$("#myModal").show()
+						$("#spinner").addClass("hidden");
 					},
 					uploadProgress: function(event, position, total, percentComplete) {
 						var percentVal = percentComplete + '%';
