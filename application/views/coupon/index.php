@@ -98,12 +98,14 @@
 					$("#headerCheck").show();
 					$("#delete_btn").show();
 				}
+				
 				$("input:checkbox").change(function(){
-					if($(this).prop("checked")){
+					$("#delete_btn").addClass("disabled")
+					$("input:checkbox").each(function(){
+						if($(this).prop("checked")){
 						$("#delete_btn").removeClass("disabled")
-					}else{
-						$("#delete_btn").addClass("disabled")
 					}
+					})
 				});
 		});
 
