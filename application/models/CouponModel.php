@@ -159,6 +159,15 @@ class CouponModel extends CI_Model {
         $this->db->where('code', $code);
         return $this->db->get('coupon')->result();
     }
+
+
+    public function getByCodeRegionWholeSaler($region, $code, $whole_saler) {
+        $this->db->where('region', $region);
+        $this->db->where('code', $code);
+        $this->db->where('whole_saler', $whole_saler);
+        return $this->db->get('coupon')->result();
+    }
+    
     /*
     function for update Coupon.
     return true.

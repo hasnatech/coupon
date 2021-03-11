@@ -17,6 +17,11 @@ body {
   border-color: #b6000F;
 }
 
+.btn-primary.disabled, .btn-primary:disabled {
+  background-color: #bbb;
+  border-color: #bbb;
+}
+
 .text-primary {
   color: #e2000f !important;
 }
@@ -82,5 +87,9 @@ footer {
 .scrollable {
   max-height: calc(100vh - 220px);
   overflow: auto;
+}
+
+.couponc {
+  margin-left: 8px;
 }
 /*# sourceMappingURL=admin-style.css.map */

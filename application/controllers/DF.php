@@ -19,10 +19,11 @@ class Df extends My_Controller {
 
         if ($this->form_validation->run() == TRUE) {
             $codeArr = explode("-", $data['coupon']);
-            if(count($codeArr) == 2){
+            if(count($codeArr) == 3){
                 $region = $codeArr[0];
-                $code = $codeArr[1];
-                $result = $this->CouponModel->getByCodeRegion($region, $code);
+                $whole_saler = $codeArr[1];
+                $code = $codeArr[2];
+                $result = $this->CouponModel->getByCodeRegionWholeSaler($region, $code, $whole_saler);
                 //print_r($result);
                 //exit;
                 if(count($result) == 1){

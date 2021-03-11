@@ -23,16 +23,22 @@
 	<table id="datatable" class="table table-bordered table-striped">
 		<thead>
 			<tr>
+				<th>
+					<input id="headerCheck"  type="checkbox">
+				</th>
 				<th>SL No</th>
 				<th>Code</th>
 				<th>Price</th>
-				<th>Wholesaler</th>
+				<!-- <th>Wholesaler</th> -->
 				<th>Issued</th>
 				<th>Issued Date</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
 	</table>
+	<div>
+		<a id='delete_btn' href="#" class="btn btn-primary disabled">Delete</a>
+	</div>
 	<?php } else {?>
 	<div class="alert alert-info" role="alert">
 		<strong>No Coupons Found!</strong>
@@ -77,8 +83,28 @@
 			"columnDefs": [{
 				"targets": [0,1,2,3,4,5],
 				"orderable": false
-			}]
+			}],
+			"initComplete": function(settings, json) {
+				
+			}
+		});
 
+		$('#datatable').on( 'draw.dt', function () {
+			console.log("complete")
+				if($(".couponc").length == 0){
+					$("#headerCheck").hide();
+					$("#delete_btn").hide();
+				}else {
+					$("#headerCheck").show();
+					$("#delete_btn").show();
+				}
+				$("input:checkbox").change(function(){
+					if($(this).prop("checked")){
+						$("#delete_btn").removeClass("disabled")
+					}else{
+						$("#delete_btn").addClass("disabled")
+					}
+				});
 		});
 
 		$("#export").click(function(e){
@@ -142,6 +168,41 @@
 				});
 			});
 		});
+
+		$("#headerCheck").change(function(e){
+			if($(this).prop("checked")){
+				$("input:checkbox").prop("checked", "checked");
+			}else{
+				$("input:checkbox").prop("checked", "");
+			}
+		});
+		
+		$("#delete_btn").click(function(e){
+			e.preventDefault();
+			var checkedArr = [];
+			$("input:checkbox").each(function(e){
+				if($(this).prop("checked")){
+					if($(this).val() != "on")
+						checkedArr.push($(this).val());
+				}
+			})
+			console.log(checkedArr);
+			if(checkedArr.length >0 ){
+				$.ajax({
+				url: '<?php echo base_url('coupon/delete_bulk') ?>',
+				data: JSON.stringify(checkedArr),
+				method: 'POST',
+				success: function(data){
+					if(data == "success"){
+						location.reload();
+					}else{
+						alert(data)
+					}
+				}
+			});
+			}
+			
+		})
 	});
 	</script>
 </div>

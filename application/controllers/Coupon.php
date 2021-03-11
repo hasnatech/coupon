@@ -46,10 +46,11 @@ class Coupon extends Admin_Controller {
         {
             $count++;
             $sub_array = array();  
+            $sub_array[] = ($coupon->issued == 1) ? '' : '<input  type="checkbox" class="couponc" value="'. $coupon->id . '">';  
             $sub_array[] = $count;  
-            $sub_array[] = $coupon->region. "-" . $coupon->code;  
+            $sub_array[] = $coupon->region. "-" . $coupon->whole_saler . '-' . $coupon->code;  
             $sub_array[] = $this->CouponModel->getPrice($coupon->price)[0]->name;  
-            $sub_array[] = $coupon->whole_saler;
+            //$sub_array[] = $coupon->whole_saler;
             $sub_array[] = ($coupon->issued == 1) ? '<div class="badge bg-success ">Issued</div>' : '<div class="badge bg-warning text-dark">Available</div>';  
             $sub_array[] = ($coupon->issued_date == null) ? '' : date('M d, Y',  strtotime($coupon->issued_date));
             if($coupon->issued_date == null){
@@ -106,9 +107,9 @@ class Coupon extends Admin_Controller {
                     $row_error_fl = false;
                     //$customer_name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
                     $region = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
-                    $code = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
-                    $price = $this->CouponModel->getPriceId($worksheet->getCellByColumnAndRow(3, $row)->getValue());
-                    $whole_saler = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+                    $whole_saler = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+                    $code = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+                    $price = $this->CouponModel->getPriceId($worksheet->getCellByColumnAndRow(4, $row)->getValue());
                     $code_arr = $this->CouponModel->getDataByCode($code);
                     if(count($code_arr) > 0)
                     {
@@ -160,7 +161,8 @@ class Coupon extends Admin_Controller {
                 $row_error[] = "<p class='text-success'>" . count($excel) . " data are imported.</p>";
                 $this->json($row_error);
             }else {
-                $this->json("<p class='text-success'>" . count($excel) . " data are imported.</p>");
+                $row_error[] = "<p class='text-success'>" . count($excel) . " data are imported.</p>";
+                $this->json($row_error);
             }
             
         }
@@ -206,15 +208,15 @@ class Coupon extends Admin_Controller {
         {
             $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->id);
             $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->region);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row,  $row->code);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $this->CouponModel->getPrice($row->price)[0]->name);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row,  $row->whole_saler);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row,  $row->whole_saler);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row,  $row->code);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $this->CouponModel->getPrice($row->price)[0]->name);
             $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, ($row->issued == 1) ? 'Issued' : 'Available');
             $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->issued_date);
             $excel_row++;
         }
 
-        //$this->json($data['coupons']);
+        $this->json($data['coupons']);
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="Coupon Data.xls"');
@@ -338,6 +340,15 @@ class Coupon extends Admin_Controller {
         $delete = $this->CouponModel->delete($coupon_id);
         $this->session->set_flashdata('success', 'coupon deleted');
         redirect('coupon');
+    }
+
+    public function delete_bulk(){
+        $data = json_decode(file_get_contents('php://input'), true);
+        for ($i = 0; $i < count($data); $i++)
+        {
+            $this->CouponModel->delete($data[$i]);
+        }
+        $this->json("success");
     }
     /*
     function for activation and deactivation of Coupon.

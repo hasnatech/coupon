@@ -20,6 +20,10 @@ $primary-dark: #b6000F;
         background-color: $primary-dark;
         border-color: $primary-dark;
     }
+    &.disabled, &:disabled{
+        background-color: #bbb;
+        border-color: #bbb;
+    }
 }
 
 .text-primary{
@@ -76,4 +80,8 @@ footer{
 .scrollable{
 	max-height: calc(100vh - 220px);
 	overflow: auto;
+}
+
+.couponc{
+    margin-left: 8px;
 }
